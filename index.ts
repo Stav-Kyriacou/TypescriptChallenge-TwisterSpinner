@@ -7,9 +7,7 @@ import { SpinRecord } from './models/spin';
 // used to make the spinner spin
 let spinnerCounter = 0;
 
-
-
-// container for the spinner 
+// container for the spinner
 let spinnerCycle;
 
 // used to keep track of how many spins have been requested
@@ -21,8 +19,6 @@ let selectedBodyPart: string;
 
 // use to store the results of spins
 let spinHistoryArray: Array<SpinRecord> = [];
-
-
 
 const colourDiv = document.getElementById('colourResult');
 
@@ -38,17 +34,22 @@ const bodyPartP = document.getElementById('bodyPartText');
 
 // TODO see above and create an array of strings to store the bodypart strings from the enum
 let bodyPartsArray: Array<string> = [];
-
-
+for (let bp in BodyParts) {
+  if (isNaN(Number(bp))) {
+    coloursArray.push(bp);
+  }
+}
 
 // TODO add eventlistners to buttons
-const spinBtn = <HTMLButtonElement> document.getElementById('spin-btn');
-spinBtn.addEventListener('click', () => spinBtnHandler(2000, 100)); 
+const spinBtn = <HTMLButtonElement>document.getElementById('spin-btn');
+spinBtn.addEventListener('click', () => spinBtnHandler(2000, 100));
+
+const statsBtn = <HTMLButtonElement>document.getElementById('statsBtn');
+// statsBtn.addEventListener('click', )
 
 // TODO handles the spin button click
 // time in ms, interval in ms
 function spinBtnHandler(time: number, interval: number) {
-  
   // start spinner rotating through colours
   spinnerCycle = setInterval(() => spinSpinners(), interval);
 
@@ -60,37 +61,33 @@ function spinBtnHandler(time: number, interval: number) {
   let bodyPartIndex: number = 0;
   selectedBodyPart = bodyPartsArray[bodyPartIndex];
 
-
   spinBtn.disabled = true;
-  
+
   // set timer to stop the spinners rotating
   setTimeout(() => stopSpinners(), time);
 }
 
-// rotates between the colours in Colours.enum.  
+// rotates between the colours in Colours.enum.
 function spinSpinners() {
   spinnerCounter++;
 
-  colourDiv.style.backgroundColor = coloursArray[spinnerCounter%coloursArray.length];
+  colourDiv.style.backgroundColor =
+    coloursArray[spinnerCounter % coloursArray.length];
 
-  bodyPartP.innerHTML = bodyPartsArray[spinnerCounter%bodyPartsArray.length];
+  bodyPartP.innerHTML = bodyPartsArray[spinnerCounter % bodyPartsArray.length];
 }
 
 // stops spinner after time parameter, time in ms
 function stopSpinners() {
-  clearInterval(spinnerCycle)
+  clearInterval(spinnerCycle);
   // TODO set colourDiv and bodyPartP to the randomly spun results
-
 
   spinBtn.disabled = false;
   addToHistory();
 }
 
-
 // TODO add the newly spun result to the history table
-function addToHistory() {
-  
-}
+function addToHistory() {}
 
 function statsBtnHandler() {
   // TODO set the statsResults div innerHTML to the amount and last spun number that the user has chosen
