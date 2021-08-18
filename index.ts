@@ -21,6 +21,12 @@ let selectedBodyPart: string;
 let spinHistoryArray: Array<SpinRecord> = [];
 
 const colourDiv = document.getElementById('colourResult');
+const colourSlt: HTMLSelectElement = document.getElementById(
+  'colourSelect'
+) as HTMLSelectElement;
+const bodyPartSlt: HTMLSelectElement = document.getElementById(
+  'bodyPartSelect'
+) as HTMLSelectElement;
 
 // sets up an array of strings to represent the colours from the enum
 let coloursArray: Array<string> = [];
@@ -37,6 +43,28 @@ let bodyPartsArray: Array<string> = [];
 for (let bp in BodyParts) {
   if (isNaN(Number(bp))) {
     bodyPartsArray.push(bp);
+  }
+}
+
+//populate the Colour and BodyPart select elements
+let count = 0;
+for (let c in Colours) {
+  if (isNaN(Number(c))) {
+    let newOption: HTMLOptionElement = document.createElement('option');
+    newOption.innerHTML = c;
+    newOption.value = count.toString();
+    count++;
+    colourSlt.add(newOption);
+  }
+}
+count = 0;
+for (let c in BodyParts) {
+  if (isNaN(Number(c))) {
+    let newOption: HTMLOptionElement = document.createElement('option');
+    newOption.innerHTML = c;
+    newOption.value = count.toString();
+    count++;
+    bodyPartSlt.add(newOption);
   }
 }
 
