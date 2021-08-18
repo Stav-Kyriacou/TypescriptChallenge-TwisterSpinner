@@ -7,7 +7,7 @@ export enum Colours {
 
 // TODO: implement a ColoursHelper class as shown in BodyParts
 export class ColoursHelper {
-  static bodyParts: Colours[] = [
+  static colours: Colours[] = [
     Colours.Red,
     Colours.Blue,
     Colours.Yellow,

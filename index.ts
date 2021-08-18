@@ -36,7 +36,7 @@ const bodyPartP = document.getElementById('bodyPartText');
 let bodyPartsArray: Array<string> = [];
 for (let bp in BodyParts) {
   if (isNaN(Number(bp))) {
-    coloursArray.push(bp);
+    bodyPartsArray.push(bp);
   }
 }
 
@@ -45,7 +45,7 @@ const spinBtn = <HTMLButtonElement>document.getElementById('spin-btn');
 spinBtn.addEventListener('click', () => spinBtnHandler(2000, 100));
 
 const statsBtn = <HTMLButtonElement>document.getElementById('statsBtn');
-// statsBtn.addEventListener('click', )
+statsBtn.addEventListener('click', statsBtnHandler);
 
 // TODO handles the spin button click
 // time in ms, interval in ms
@@ -54,12 +54,12 @@ function spinBtnHandler(time: number, interval: number) {
   spinnerCycle = setInterval(() => spinSpinners(), interval);
 
   // TODO randomly select colour from array
-  let colourIndex: number = 0;
-  selectedColour = coloursArray[colourIndex];
+  let randColour = Math.floor(Math.random() * coloursArray.length);
+  selectedColour = coloursArray[randColour];
 
   // TODO randomly select bodyPart from array
-  let bodyPartIndex: number = 0;
-  selectedBodyPart = bodyPartsArray[bodyPartIndex];
+  let randBodyPart = Math.floor(Math.random() * bodyPartsArray.length);
+  selectedBodyPart = bodyPartsArray[randBodyPart];
 
   spinBtn.disabled = true;
 
@@ -81,7 +81,8 @@ function spinSpinners() {
 function stopSpinners() {
   clearInterval(spinnerCycle);
   // TODO set colourDiv and bodyPartP to the randomly spun results
-
+  colourDiv.style.backgroundColor = selectedColour;
+  bodyPartP.innerHTML = selectedBodyPart;
   spinBtn.disabled = false;
   addToHistory();
 }
