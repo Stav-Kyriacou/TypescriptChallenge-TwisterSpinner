@@ -34,6 +34,8 @@ const historyTable: HTMLTableElement = document.getElementById(
 const historyTableBody: HTMLTableSectionElement = <HTMLTableSectionElement>(
   document.getElementById('historyTableBody')
 );
+colourSlt.addEventListener('change', statsBtnHandler);
+bodyPartSlt.addEventListener('change', statsBtnHandler);
 
 // sets up an array of strings to represent the colours from the enum
 let coloursArray: Array<string> = [];
@@ -134,17 +136,7 @@ function addToHistory() {
   //store it in the array
   spinHistoryArray.push(spinResult);
 
-  //create new table row with cells
-  let newHistoryRow = historyTableBody.insertRow();
-  let cellNum = newHistoryRow.insertCell(0);
-  let cellColour = newHistoryRow.insertCell(1);
-  let cellBodyPart = newHistoryRow.insertCell(2);
-
-  //change test of cells to match new SpinRecord
-  cellNum.innerHTML = spinResult.num.toString();
-  cellColour.innerHTML = coloursArray[spinResult.colour];
-  cellBodyPart.innerHTML = bodyPartsArray[spinResult.bodyPart];
-  spinCount++;
+  createHistoryRow(spinResult);
 }
 function statsBtnHandler() {
   // TODO set the statsResults div innerHTML to the amount and last spun number that the user has chosen
@@ -198,4 +190,18 @@ function getLastSpun(colour, bodyPart): number {
     }
   }
   return largestNum;
+}
+
+function createHistoryRow(spinResult: SpinRecord) {
+  //create new table row with cells
+  let newHistoryRow = historyTableBody.insertRow();
+  let cellNum = newHistoryRow.insertCell(0);
+  let cellColour = newHistoryRow.insertCell(1);
+  let cellBodyPart = newHistoryRow.insertCell(2);
+
+  //change test of cells to match new SpinRecord
+  cellNum.innerHTML = spinResult.num.toString();
+  cellColour.innerHTML = coloursArray[spinResult.colour];
+  cellBodyPart.innerHTML = bodyPartsArray[spinResult.bodyPart];
+  spinCount++;
 }
