@@ -9,25 +9,24 @@ export enum BodyParts {
 // usage can be either via the array or
 // use the get method eg.  BodyPartsHelper.get("LeftHand")
 export class BodyPartsHelper {
-
   static bodyParts: BodyParts[] = [
-    BodyParts.LeftFoot,
     BodyParts.LeftHand,
-    BodyParts.RightFoot,
-    BodyParts.RightHand
+    BodyParts.RightHand,
+    BodyParts.LeftFoot,
+    BodyParts.RightFoot
   ];
 
   constructor() {}
 
   static get(key: string): BodyParts {
     switch (key) {
-      case "LeftHand":
+      case 'LeftHand':
         return BodyParts.LeftHand;
-      case "RightHand":
-          return BodyParts.RightHand;
-      case "LeftFoot":
+      case 'RightHand':
+        return BodyParts.RightHand;
+      case 'LeftFoot':
         return BodyParts.LeftFoot;
-      case "RightFoot":
+      case 'RightFoot':
         return BodyParts.RightFoot;
     }
   }

@@ -21,6 +21,7 @@ let selectedBodyPart: string;
 let spinHistoryArray: Array<SpinRecord> = [];
 
 const colourDiv = document.getElementById('colourResult');
+const statsResultsDiv = document.getElementById('statsResults');
 const colourSlt: HTMLSelectElement = document.getElementById(
   'colourSelect'
 ) as HTMLSelectElement;
@@ -149,14 +150,52 @@ function statsBtnHandler() {
   // TODO set the statsResults div innerHTML to the amount and last spun number that the user has chosen
   // eg. Red LeftHand spun 10 times
   //     Red LeftHand last spun at num 23
+
+  let colour: Colours = ColoursHelper.colours[colourSlt.selectedIndex];
+  let bodyPart: BodyParts =
+    BodyPartsHelper.bodyParts[bodyPartSlt.selectedIndex];
+  let amount: number = getAmount(colour, bodyPart);
+  let lastSpun: number = getLastSpun(colour, bodyPart);
+
+  let colString: string = colourSlt.selectedOptions[0].innerHTML;
+  let bpString: string = bodyPartSlt.selectedOptions[0].innerHTML;
+  statsResultsDiv.innerHTML =
+    colString +
+    ' ' +
+    bpString +
+    ' spun ' +
+    amount +
+    ' times' +
+    '<br>' +
+    colString +
+    ' ' +
+    bpString +
+    ' last spun at num ' +
+    lastSpun;
 }
 
 // TODO returns the amount of times the combination of selected of colour and body part have been spun
 function getAmount(colour, bodyPart): number {
-  return 0;
+  let count: number = 0;
+  for (let spin of spinHistoryArray) {
+    if (spin.colour === colour && spin.bodyPart === bodyPart) {
+      count++;
+    }
+  }
+  return count;
 }
 
 // TODO return the last num which the combination of selected of colour and body part have been spun
 function getLastSpun(colour, bodyPart): number {
-  return 0;
+  let largestNum: number = 0;
+  for (let spin of spinHistoryArray) {
+    if (
+      spin.colour === colour &&
+      spin.bodyPart === bodyPart &&
+      spin.num > largestNum
+    ) {
+      largestNum = spin.num;
+    }
+  }
+  return largestNum;
 }
