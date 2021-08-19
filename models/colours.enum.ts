@@ -18,13 +18,13 @@ export class ColoursHelper {
 
   static get(key: string): Colours {
     switch (key) {
-      case 'LeftHand':
+      case 'Red':
         return Colours.Red;
-      case 'RightHand':
+      case 'Blue':
         return Colours.Blue;
-      case 'LeftFoot':
+      case 'Yellow':
         return Colours.Yellow;
-      case 'RightFoot':
+      case 'Green':
         return Colours.Green;
     }
   }

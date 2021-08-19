@@ -1,6 +1,6 @@
 // Import stylesheets
 import './style.css';
-import { Colours } from './models/colours.enum';
+import { Colours, ColoursHelper } from './models/colours.enum';
 import { BodyParts, BodyPartsHelper } from './models/bodyParts.enum';
 import { SpinRecord } from './models/spin';
 
@@ -27,6 +27,12 @@ const colourSlt: HTMLSelectElement = document.getElementById(
 const bodyPartSlt: HTMLSelectElement = document.getElementById(
   'bodyPartSelect'
 ) as HTMLSelectElement;
+const historyTable: HTMLTableElement = document.getElementById(
+  'historyTable'
+) as HTMLTableElement;
+const historyTableBody: HTMLTableSectionElement = <HTMLTableSectionElement>(
+  document.getElementById('historyTableBody')
+);
 
 // sets up an array of strings to represent the colours from the enum
 let coloursArray: Array<string> = [];
@@ -116,8 +122,29 @@ function stopSpinners() {
 }
 
 // TODO add the newly spun result to the history table
-function addToHistory() {}
+function addToHistory() {
+  //create new SpinRecord
+  let spinResult: SpinRecord = new SpinRecord(
+    ColoursHelper.get(selectedColour),
+    BodyPartsHelper.get(selectedBodyPart),
+    spinCount
+  );
 
+  //store it in the array
+  spinHistoryArray.push(spinResult);
+
+  //create new table row with cells
+  let newHistoryRow = historyTableBody.insertRow();
+  let cellNum = newHistoryRow.insertCell(0);
+  let cellColour = newHistoryRow.insertCell(1);
+  let cellBodyPart = newHistoryRow.insertCell(2);
+
+  //change test of cells to match new SpinRecord
+  cellNum.innerHTML = spinResult.num.toString();
+  cellColour.innerHTML = coloursArray[spinResult.colour];
+  cellBodyPart.innerHTML = bodyPartsArray[spinResult.bodyPart];
+  spinCount++;
+}
 function statsBtnHandler() {
   // TODO set the statsResults div innerHTML to the amount and last spun number that the user has chosen
   // eg. Red LeftHand spun 10 times
